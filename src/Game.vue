@@ -10,7 +10,7 @@ const answer = getWordOfTheDay()
 // Board state. Each tile is represented as { letter, state }
 const board = $ref(
   Array.from({ length: 6 }, () =>
-    Array.from({ length: 5 }, () => ({
+    Array.from({ length: answer.length }, () => ({
       letter: '',
       state: LetterState.INITIAL
     }))
@@ -73,11 +73,11 @@ function clearTile() {
 function completeRow() {
   if (currentRow.every((tile) => tile.letter)) {
     const guess = currentRow.map((tile) => tile.letter).join('')
-    if (!allWords.includes(guess) && guess !== answer) {
-      shake()
-      showMessage(`Not in word list`)
-      return
-    }
+    // if (!allWords.includes(guess) && guess !== answer) {
+    //   shake()
+    //   showMessage(`Not in word list`)
+    //   return
+    // }
 
     const answerLetters: (string | null)[] = answer.split('')
     // first pass: mark correct ones
@@ -179,26 +179,20 @@ function genResultGrid() {
     </div>
   </Transition>
   <header>
-    <h1>VVORDLE</h1>
-    <a
-      id="source-link"
-      href="https://github.com/yyx990803/vue-wordle"
-      target="_blank"
-      >Source</a
-    >
+    <h1 class="text-indigo-600">Male is...</h1>
   </header>
   <div id="board">
     <div
       v-for="(row, index) in board"
       :class="[
-        'row',
+        'flex',
         shakeRowIndex === index && 'shake',
         success && currentRowIndex === index && 'jump'
       ]"
     >
       <div
         v-for="(tile, index) in row"
-        :class="['tile', tile.letter && 'filled', tile.state && 'revealed']"
+        :class="['ml-1 tile', tile.letter && 'filled', tile.state && 'revealed']"
       >
         <div class="front" :style="{ transitionDelay: `${index * 300}ms` }">
           {{ tile.letter }}
@@ -221,13 +215,13 @@ function genResultGrid() {
 <style scoped>
 #board {
   display: grid;
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(7, 1fr);
   grid-gap: 5px;
   padding: 10px;
   box-sizing: border-box;
   --height: min(420px, calc(var(--vh, 100vh) - 310px));
   height: var(--height);
-  width: min(350px, calc(var(--height) / 6 * 5));
+  width: min(350px, calc(var(--height) / 7 * 6));
   margin: 0px auto;
 }
 .message {
@@ -246,11 +240,7 @@ function genResultGrid() {
 .message.v-leave-to {
   opacity: 0;
 }
-.row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 5px;
-}
+
 .tile {
   width: 100%;
   font-size: 2rem;
