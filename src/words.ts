@@ -18,14 +18,23 @@ export function getWordOfTheDay() {
   const start = new Date(2022, 0, 0)
   const diff = Number(now) - Number(start)
   let day = Math.floor(diff / (1000 * 60 * 60 * 24))
-  while (day > answers.length) {
+  while (day >= answers.length) {
     day -= answers.length
   }
+
+  console.log(answers, day)
   return answers[day]
 }
 
-// copied from Wordle source
 const answers = [
+  'smart',
+  'cooly',
+  'brobr',
+  'hihih',
+  'supsu',
+]
+
+const allowedGuesses = [
   'cigar',
   'rebut',
   'sissy',
@@ -2340,10 +2349,7 @@ const answers = [
   'rower',
   'artsy',
   'rural',
-  'shave'
-]
-
-const allowedGuesses = [
+  'shave',
   'aahed',
   'aalii',
   'aargh',
