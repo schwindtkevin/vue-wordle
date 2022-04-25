@@ -97,8 +97,8 @@ const answers = [
   'loyal',
   'yummy',
   'meme',
-  'loyal',
-  'loyal',
-  'loyal',
-  'loyal',
+  'everything',
+  'exceptional',
+  'thoughtful',
+  'unique',
 ]
